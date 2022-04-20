@@ -72,5 +72,4 @@ public class ItemInformationTest{
             waitOnPageBack.until(ExpectedConditions.urlToBe("http://automationpractice.com/index.php?id_category=3&controller=category"));
         }
     }
-
 }
