@@ -1,6 +1,3 @@
-# Dillinger
-## _The Last Markdown Editor, Ever_
-
 ## About
 
 This project contains automated tests for the page http://automationpractice.com/index.php.
