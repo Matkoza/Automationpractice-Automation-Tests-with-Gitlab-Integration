@@ -1,38 +1,44 @@
-package test;
 
-import main.Setup;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ItemInformationTest{
+public class ItemInformationTest {
     private static WebDriver webDriver;
-    private static WebDriverWait wait;
+
     private static Setup setup;
 
     @BeforeAll
     static void SetupBeforeExecution(){
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        webDriver = new ChromeDriver();
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options=new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920x1080");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--no-sandbox");
+        webDriver = new ChromeDriver(options);
         webDriver.manage().window().maximize();
-        wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
-        setup = new Setup(webDriver, wait);
+        setup = new Setup(webDriver);
     }
 
     @BeforeEach
     void setUp() throws Exception{
         setup.startApplication();
+    }
+
+    @AfterAll
+    static void tearDown(){
+        setup.exitApplication();
     }
 
     @Test

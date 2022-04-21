@@ -1,6 +1,8 @@
-package test;
 
-import main.Setup;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import net.bytebuddy.utility.RandomString;
+import org.apache.commons.lang.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,26 +11,33 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class RegisterTest {
     private static WebDriver webDriver;
-    private static WebDriverWait wait;
     private static Setup setup;
 
     @BeforeAll
     static void SetupBeforeExecution(){
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        webDriver = new ChromeDriver();
+        WebDriverManager.chromedriver().setup();
+
+        ChromeOptions options=new ChromeOptions();
+
+        //options.addArguments("--headless");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920x1080");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--no-sandbox");
+
+        webDriver = new ChromeDriver(options);
         webDriver.manage().window().maximize();
-        wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
-        setup = new Setup(webDriver, wait);
+
+        setup = new Setup(webDriver);
     }
 
     @BeforeEach
@@ -45,8 +54,8 @@ public class RegisterTest {
         WebDriverWait waitOnSignInPageLoad = new WebDriverWait(webDriver, 20);
         waitOnSignInPageLoad.until(ExpectedConditions.elementToBeClickable(emailField));
 
-
-        emailField.sendKeys("matej.mujezinovic@gmail.com");
+        String randomEmail = randomizedEmail();
+        emailField.sendKeys(randomEmail);
         WebElement registerButton = webDriver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[3]/div/div/div[1]/form/div/div[3]/button/span"));
         registerButton.click();
 
@@ -115,5 +124,9 @@ public class RegisterTest {
         logout.click();
         String homeUrl = "http://automationpractice.com/index.php";
         assertEquals(webDriver.getCurrentUrl(), homeUrl);
+    }
+
+    public String randomizedEmail() {
+        return RandomStringUtils.random(10, true, false) + "@gmail.com";
     }
 }
