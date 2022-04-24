@@ -52,7 +52,7 @@ Test Steps:
 - Assert home page URL is correct
 - Assert that the page is opened and responsive
 
-# TestItemInformation (automated smoke test 2) [positive test case]
+# Test Item Information (automated smoke test 2) [positive test case]
 Test Case: Test if all of the items are reponsive
 Test Case Description: The goal of this test is to see if the items of the page are responsive and display the appropriate data
 Test Data: /
@@ -65,7 +65,7 @@ Test Steps:
 - Open element page
 - Assert that the price and name show appropriate values
 
-# TestItemPurchase (automated smoke test 3) [positive test case]
+# Test Item Purchase (automated smoke test 3) [positive test case]
 Test Case: Test if an item can be added to the cart and purchased
 Test Case Description: The goal of this test is to see if the user can go through the process of buying an item. This is done by adding the item to the cart and proceeding to checkout. The test also covers the validity of the price given that there is a shipping cost and a tax cost.
 Test Data: First item on the Woman collection page, The email for logging in -> (matej.mujezinovic@gmail.com), The password for logging in -> (12345)
@@ -85,7 +85,7 @@ Test Steps:
 - Click Terms of service checkbox
 - Click Proceed to checkout (4)
 
-# RegisterTest [positive test case]
+# Register Test [positive test case]
 Test Case: Test if a user can register his/her account.
 Test Case Description: The goal of this test is to see if a user can register on the website. This test covers input field validation for length, types, formats
 Test Data: 
@@ -125,7 +125,7 @@ Test Steps:
 - Click Register
 - Assert that the user was created and redirected to his account page
 
-# LoginTest [positive test case]
+# Login Test [positive test case]
 Test Case: Test if a registered user can log in
 Test Case Description: The goal of this test is to see if a registered user can log in using his/her email and password
 Test Data:
