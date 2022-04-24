@@ -8,12 +8,8 @@ public class Setup {
 
     public Setup(WebDriver webDriver) {
         WebDriverManager.chromedriver().setup();
-        ChromeOptions options=new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--window-size=1920x1080");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--no-sandbox");
+        ChromeOptions options = new ChromeOptions();
+
         Setup.webDriver = new ChromeDriver(options);
         Setup.webDriver.manage().window().maximize();
         Setup.webDriver = webDriver;

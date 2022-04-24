@@ -1,4 +1,3 @@
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,24 +15,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestItemPurchase {
     private static WebDriver webDriver;
-
     private static Setup setup;
 
     @BeforeAll
     static void SetupBeforeExecution(){
         WebDriverManager.chromedriver().setup();
-
-        ChromeOptions options=new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
 
         //options.addArguments("--headless");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920x1080");
         options.addArguments("--disable-extensions");
         options.addArguments("--no-sandbox");
-
         webDriver = new ChromeDriver(options);
         webDriver.manage().window().maximize();
-
         setup = new Setup(webDriver);
     }
 
@@ -41,18 +36,19 @@ public class TestItemPurchase {
     void setUp() throws Exception{
         setup.startApplication();
     }
-//    @AfterAll
-//    static void tearDown(){
-//        setup.exitApplication();
-//    }
+    @AfterAll
+    static void tearDown(){
+        setup.exitApplication();
+   }
 
     @Test
     void testAddToCart(){
 
         WebElement WomenButton = webDriver.findElement(By.xpath("//*[@id=\"block_top_menu\"]/ul/li[1]/a[text()='Women']"));
         WomenButton.click();
-        WebDriverWait waitOnWomanPageLoad= new WebDriverWait(webDriver, 20);
-        waitOnWomanPageLoad.until(ExpectedConditions.urlToBe("http://automationpractice.com/index.php?id_category=3&controller=category"));
+
+        WebDriverWait waitOnItemLoad = new WebDriverWait(webDriver, 30);
+        waitOnItemLoad.until(ExpectedConditions.elementToBeClickable(webDriver.findElement(By.xpath("/html/body/div/div[2]/div/div[3]/div[2]/ul/li[1]/div/div[1]/div/a[1]/img"))));
 
         Actions actions = new Actions(webDriver);
         WebElement firstItem = webDriver.findElement(By.xpath("/html/body/div/div[2]/div/div[3]/div[2]/ul/li[1]/div/div[1]/div/a[1]/img"));

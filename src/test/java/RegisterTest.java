@@ -1,8 +1,6 @@
-
-
 import io.github.bonigarcia.wdm.WebDriverManager;
-import net.bytebuddy.utility.RandomString;
 import org.apache.commons.lang.RandomStringUtils;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,24 +23,26 @@ public class RegisterTest {
     @BeforeAll
     static void SetupBeforeExecution(){
         WebDriverManager.chromedriver().setup();
-
-        ChromeOptions options=new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
 
         //options.addArguments("--headless");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920x1080");
         options.addArguments("--disable-extensions");
         options.addArguments("--no-sandbox");
-
         webDriver = new ChromeDriver(options);
         webDriver.manage().window().maximize();
-
         setup = new Setup(webDriver);
     }
 
     @BeforeEach
     void setUp() throws Exception{
         setup.startApplication();
+    }
+
+    @AfterAll
+    static void tearDown(){
+        setup.exitApplication();
     }
 
     @Test

@@ -1,4 +1,3 @@
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -9,19 +8,19 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ItemInformationTest {
-    private static WebDriver webDriver;
+public class TestItemInformation {
 
+    private static WebDriver webDriver;
     private static Setup setup;
 
     @BeforeAll
     static void SetupBeforeExecution(){
         WebDriverManager.chromedriver().setup();
-        ChromeOptions options=new ChromeOptions();
-        options.addArguments("--headless");
+        ChromeOptions options = new ChromeOptions();
+
+        //options.addArguments("--headless");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920x1080");
         options.addArguments("--disable-extensions");
